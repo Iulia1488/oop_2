@@ -1,61 +1,70 @@
 package ru.netology.domain;
 
 public class Radio {
-    private int currentStation;
     private int minStation = 0;
     private int maxStation = 9;
     private int currentVolume;
-    private int minVolume = 0;
-    private int maxVolume = 100;
+    private int currentStation = minStation;
+
+
+    public Radio(int size) {
+        maxStation = minStation + size - 1;
+
+    }
+    public Radio() {
+        this.currentStation = minStation;
+    }
 
     public int getCurrentStation() {
         return currentStation;
     }
 
-    public void setCurrentStation(int currentStation) {
-        if (currentStation < minStation || currentStation > maxStation) {
-            return;
+    public void setCurrentStation(int newCurrentStation) {
+        if (newCurrentStation > maxStation) {
+            newCurrentStation = minStation;
         }
-        this.currentStation = currentStation;
-    }
-
-    public void nextStation() {
-        if (maxStation <= currentStation) {
-            setCurrentStation(minStation);
-        } else {
-            setCurrentStation(currentStation + 1);
+        if (newCurrentStation < minStation) {
+            newCurrentStation = maxStation;
         }
-    }
-
-    public void previousStation() {
-        if (currentStation <= minStation) {
-            setCurrentStation(maxStation);
-        } else {
-            setCurrentStation(currentStation - 1);
-        }
+        currentStation = newCurrentStation;
     }
 
     public int getCurrentVolume() {
         return currentVolume;
     }
 
-    public void setCurrentVolume(int currentVolume) {
-        if (currentVolume < minVolume || currentVolume > maxVolume) {
-            return;
-        }
-        this.currentVolume = currentVolume;
+    public int getMinStation() {
+        return minStation;
     }
 
-    public void increaseVolume() {
-        if (currentVolume < maxVolume) {
-            currentVolume++;
-        }
+    public int getMaxStation() {
+        return maxStation;
     }
 
-    public void decreaseVolume() {
-        if (currentVolume > 0) {
-            currentVolume--;
-        }
+    public void setCurrentVolume(int newCurrentVolume) {
+        currentVolume = newCurrentVolume;
+    }
+
+    public void volumeUp() {
+        int target = currentVolume + 1;
+        setCurrentVolume(target);
+    }
+    public void volumeDown() {
+        int target = currentVolume - 1;
+        setCurrentVolume(target);
+    }
+
+    public void nextStation() {
+        int target = currentStation + 1;
+        setCurrentStation(target);
+    }
+    public void prevStation() {
+        int target = currentStation - 1;
+        setCurrentStation(target);
     }
 
 }
+
+
+
+
